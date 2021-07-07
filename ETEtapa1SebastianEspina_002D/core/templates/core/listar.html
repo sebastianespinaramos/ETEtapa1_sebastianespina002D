@@ -1,0 +1,45 @@
+{%  extends 'core/base.html' %}
+
+{% block contenido %}
+{% load humanize %} 
+
+{% load crispy_forms_tags %}
+
+<div class="card">
+     <div class="card body">
+        <h2>Lista Proveedores</h2>
+    <table class="table table-striped table-hover table-responsive-sm">
+        <tr>
+            <th>Proveedor</th>
+            <th>Valor</th>
+            <th>tipo producto
+            </th>
+            <th>¿Es nuevo</th>
+            <th>opciones</th>
+        </tr>
+
+        {% for p in productos %}
+
+        <tr>
+            <td>{{ p.nombre | title }}</td>
+            <td>{{ p.precio | intcomma }}</td>
+            <td>{{ p.marca | title }}</td>
+            <td>
+                {% if p.nuevo %}
+                SI
+                {% else %}
+                NO
+                {% endif %}
+            </td> 
+            <td>
+                <a href="{% url 'modificar_producto' p.id %}" class="btn btn-info btn-sn">modificar</a>
+                <a href="{% url 'eliminar_producto' p.id %}" class="btn btn-danger btn-sn">eliminar</a>
+            </td>           
+        </tr>
+        {% endfor%}
+        </table>
+    </div>
+</div>
+
+
+{% endblock %}
